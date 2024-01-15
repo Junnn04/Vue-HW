@@ -21,12 +21,12 @@
           <div class="col-8">
             <form id="form" class="form-signin" @submit.prevent="login">
               <div class="form-floating mb-3">
-                <input type="email" class="form-control" id="username" v-modol="user.name"
+                <input type="email" class="form-control" id="username" v-model="user.username"
                   placeholder="name@example.com" required autofocus>
                 <label for="username">Email address</label>
               </div>
               <div class="form-floating">
-                <input type="password" class="form-control" id="password" v-modol="user.password"
+                <input type="password" class="form-control" id="password" v-model="user.password"
                   placeholder="Password" required>
                 <label for="password">Password</label>
               </div>
