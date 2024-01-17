@@ -17,7 +17,7 @@ createApp({
         this.getData();
       })
       .catch((err)=>{
-        alert(err.response.data.message)
+        alert(err.data.message)
         window.location = `login.html`;
       })
      },
@@ -28,7 +28,7 @@ createApp({
          this.products = res.data.products;    
       })
       .catch((err)=>{
-        alert(err.res.data.message)
+        alert(err.data.message)
       })
      },
      productDetail(item){
