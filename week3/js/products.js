@@ -1,5 +1,6 @@
 import { createApp } from "https://unpkg.com/vue@3/dist/vue.esm-browser.js";
 
+//需在全域環境宣告
 let productModal = null;
 let delProductModal = null;
 
@@ -7,16 +8,18 @@ let delProductModal = null;
 createApp({
   data() {
     return {
-      apiUrl:'https://vue3-course-api.hexschool.io',
+      apiUrl:'https://ec-course-api.hexschool.io',
       apiPath:'junapi',
       products:[],
       tempProduct:{
         imagesUrl:[],
       },
+      //表示當前的modal是新增or編輯
       isNew: false,
      }
   },
   methods:{
+    //驗證登入
     checkAdmin(){
       const url = `${this.apiUrl}/v2/api/user/check`;
       axios.post(apiUrl)
@@ -28,6 +31,7 @@ createApp({
         window.location = `login.html`;
       })
      },
+     //取得DATA
      getData(){
       const url = `${this.apiUrl}/v2/api/${this.apiPath}/admin/products/all`;
       axios.get(url)
@@ -38,10 +42,11 @@ createApp({
         alert(err.data.message);
       })
      },
+     //編輯產品
      updateProduct(){
       let url =`${this.apiUrl}/v2/api/${this.apiPath}/admin/product`;
       let http = 'post';
-
+     //判斷當前isNew是新增or編輯
       if(!this.isNew){
         url = `${this.apiUrl}/v2/api/${this.apiPath}/admin/product/${this.tempProduct.id}`;
         http = 'put';
@@ -58,27 +63,39 @@ createApp({
       })
      },
      openModal(isNew,item){
+      //判斷為新增時
       if (isNew === 'new'){
+        //清空當前tempProduct值
         this.tempProduct = {
           imagesUrl:[],
         };
+        //變更isNew值
         this.isNew = true;
         productsModal.show();
-        }else if(isNew === 'edit'){
+        }
+        //判斷為編輯時
+        else if(isNew === 'edit'){
+          //將當前資料傳入tempProduct值
           this.tempProduct = {...item};
           this.isNew = false;
           productsModal.show()
-        }else if(isNew === 'delete'){
+        }
+        //判斷為刪除時
+        else if(isNew === 'delete'){
+          //將當前資料傳入tempProduct值，為了取得id
           this.tempProduct = {...item};
+          //開起delProductsModal
           delProductsModal.show()
         }
      },
      delProducts(){
+      //this.tempProduct.id取得產品id刪除資料
       const url = `${this.apiUrl}/api/${this.apiPath}/admin/product/${this.tempProduct.id}`;
 
       axios.delete(url)
       .then((response)=>{
         alert(response.data.message);
+        //刪除後，須關閉Modal,並更新資料
         delProductsModal.hide();
         this.getData();
       })
@@ -92,6 +109,8 @@ createApp({
      },
   },
   mounted(){
+    //建立modal,第一個參數為DOM元素，第二個參數為禁止使用ESC鍵關閉視窗
+    //backdrop:'static'則是禁止點擊modal以外地方關閉視窗，避免輸入資料遺失
     productsModal = new bootstrap.Modal(document.getElementById('productModal'),{
       Keyboard: false
     });
