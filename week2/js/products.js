@@ -1,44 +1,47 @@
-import { createApp } from "https://unpkg.com/vue@3/dist/vue.esm-browser.js";
-// 產品資料格式
+import { createApp } from 'https://unpkg.com/vue@3.4.14/dist/vue.esm-browser.js';
+
 createApp({
   data() {
     return {
-      url:'https://vue3-course-api.hexschool.io',
-      apiPath:'junapi',
-      products:[],
-      tempProduct:{},
-     }
+      apiUrl: 'https://ec-course-api.hexschool.io/v2',
+      apiPath: 'junapi',
+      products: [],
+      tempProduct: {},
+    }
   },
-  methods:{
-    checkAdmin(){
-      const apiUrl = `${this.url}/v2/api/user/check`;
-      axios.post(apiUrl)
-      .then(()=>{
-        this.getData();
-      })
-      .catch((err)=>{
-        alert(err.data.message)
-        window.location = `login.html`;
-      })
-     },
-     getData(){
-      const apiUrl = `${this.url}/v2/api/${this.apiPath}/admin/products`;
+  methods: {
+    checkAdmin() {
+      const url = `${this.apiUrl}/api/user/check`;
+      axios.post(url)
+        .then(() => {
+          alert('驗證成功');
+          this.getData();
+        })
+        .catch((err) => {
+          alert(err.data.message)
+          window.location = 'login.html';
+        })
+    },
+    getData() {
+      const url = `${this.apiUrl}/api/${this.apiPath}/admin/products`;
       axios.get(url)
-      .then((res)=>{
-         this.products = res.data.products;    
-      })
-      .catch((err)=>{
-        alert(err.data.message)
-      })
-     },
-     productDetail(item){
+        .then((response) => {
+          alert('資料成功');
+          this.products = response.data.products;
+        })
+        .catch((err) => {
+          alert(err.data.message);
+        })
+    },
+    openProduct(item) {
       this.tempProduct = item;
-     }
+    }
   },
-  mounted(){
+  mounted() {
+    // 取出 Token
     const token = document.cookie.replace(/(?:(?:^|.*;\s*)hexToken\s*=\s*([^;]*).*$)|^.*$/, '$1');
     axios.defaults.headers.common.Authorization = token;
 
     this.checkAdmin()
   }
-}).mount("#app");
+}).mount('#app');
