@@ -14,7 +14,6 @@ createApp({
       const url = `${this.apiUrl}/api/user/check`;
       axios.post(url)
         .then(() => {
-          alert('驗證成功');
           this.getData();
         })
         .catch((err) => {
@@ -26,7 +25,6 @@ createApp({
       const url = `${this.apiUrl}/api/${this.apiPath}/admin/products`;
       axios.get(url)
         .then((response) => {
-          alert('資料成功');
           this.products = response.data.products;
         })
         .catch((err) => {
