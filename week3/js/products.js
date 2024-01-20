@@ -24,6 +24,7 @@ createApp({
       const url = `${this.apiUrl}/v2/api/user/check`;
       axios.post(apiUrl)
       .then(()=>{
+        alert('驗證成功');
         this.getData();
       })
       .catch((err)=>{
