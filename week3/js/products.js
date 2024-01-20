@@ -22,14 +22,14 @@ createApp({
     //驗證登入
     checkAdmin(){
       const url = `${this.apiUrl}/v2/api/user/check`;
-      axios.post(apiUrl)
+      axios.post(url)
       .then(()=>{
         alert('驗證成功');
         this.getData();
       })
       .catch((err)=>{
         alert(err.data.message)
-        window.location = `login.html`;
+        window.location = 'login.html';
       })
      },
      //取得DATA
@@ -56,7 +56,7 @@ createApp({
       axios[http](url,{data:this.tempProduct})
       .then((response)=>{
         alert(response.data.message);
-        productsModal.hide();
+        productModal.hide();
         this.getData();
       })
       .catch((err)=>{
@@ -72,24 +72,24 @@ createApp({
         };
         //變更isNew值
         this.isNew = true;
-        productsModal.show();
+        productModal.show();
         }
         //判斷為編輯時
         else if(isNew === 'edit'){
           //將當前資料傳入tempProduct值
           this.tempProduct = {...item};
           this.isNew = false;
-          productsModal.show()
+          productModal.show()
         }
         //判斷為刪除時
         else if(isNew === 'delete'){
           //將當前資料傳入tempProduct值，為了取得id
           this.tempProduct = {...item};
           //開起delProductsModal
-          delProductsModal.show()
+          delProductModal.show()
         }
      },
-     delProducts(){
+     delProduct(){
       //this.tempProduct.id取得產品id刪除資料
       const url = `${this.apiUrl}/api/${this.apiPath}/admin/product/${this.tempProduct.id}`;
 
@@ -97,7 +97,7 @@ createApp({
       .then((response)=>{
         alert(response.data.message);
         //刪除後，須關閉Modal,並更新資料
-        delProductsModal.hide();
+        delProductModal.hide();
         this.getData();
       })
       .catch((err)=>{
@@ -112,11 +112,11 @@ createApp({
   mounted(){
     //建立modal,第一個參數為DOM元素，第二個參數為禁止使用ESC鍵關閉視窗
     //backdrop:'static'則是禁止點擊modal以外地方關閉視窗，避免輸入資料遺失
-    productsModal = new bootstrap.Modal(document.getElementById('productModal'),{
+    productModal = new bootstrap.Modal(document.getElementById('productModal'),{
       Keyboard: false
     });
 
-    delProductsModal = new bootstrap.Modal(document.getElementById('delProductModal'),{
+    delProductModal = new bootstrap.Modal(document.getElementById('delProductModal'),{
       Keyboard: false
     });
       
@@ -124,6 +124,6 @@ createApp({
     const token = document.cookie.replace(/(?:(?:^|.*;\s*)hexToken\s*=\s*([^;]*).*$)|^.*$/, '$1');
     axios.defaults.headers.common.Authorization = token;
 
-    this.checkAdmin()
+    this.checkAdmin();
   }
 }).mount("#app");
