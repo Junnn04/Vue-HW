@@ -18,6 +18,23 @@ createApp({
       isNew: false,
      }
   },
+  mounted(){
+    //建立modal,第一個參數為DOM元素，第二個參數為禁止使用ESC鍵關閉視窗
+    //backdrop:'static'則是禁止點擊modal以外地方關閉視窗，避免輸入資料遺失
+    productModal = new bootstrap.Modal(document.getElementById('productModal'),{
+      Keyboard: false
+    });
+
+    delProductModal = new bootstrap.Modal(document.getElementById('delProductModal'),{
+      Keyboard: false
+    });
+      
+    //取出token
+    const token = document.cookie.replace(/(?:(?:^|.*;\s*)hexToken\s*=\s*([^;]*).*$)|^.*$/, '$1');
+    axios.defaults.headers.common.Authorization = token;
+
+    this.checkAdmin();
+  },
   methods:{
     //驗證登入
     checkAdmin(){
@@ -60,7 +77,7 @@ createApp({
         this.getData();
       })
       .catch((err)=>{
-        alert(err.response.data.message);
+        alert(err.data.message);
       })
      },
      openModal(isNew,item){
@@ -79,7 +96,7 @@ createApp({
           //將當前資料傳入tempProduct值
           this.tempProduct = {...item};
           this.isNew = false;
-          productModal.show()
+          productModal.show();
         }
         //判斷為刪除時
         else if(isNew === 'delete'){
@@ -109,21 +126,4 @@ createApp({
       this.tempProduct.imagesUrl.push('');
      },
   },
-  mounted(){
-    //建立modal,第一個參數為DOM元素，第二個參數為禁止使用ESC鍵關閉視窗
-    //backdrop:'static'則是禁止點擊modal以外地方關閉視窗，避免輸入資料遺失
-    productModal = new bootstrap.Modal(document.getElementById('productModal'),{
-      Keyboard: false
-    });
-
-    delProductModal = new bootstrap.Modal(document.getElementById('delProductModal'),{
-      Keyboard: false
-    });
-      
-    //取出token
-    const token = document.cookie.replace(/(?:(?:^|.*;\s*)hexToken\s*=\s*([^;]*).*$)|^.*$/, '$1');
-    axios.defaults.headers.common.Authorization = token;
-
-    this.checkAdmin();
-  }
 }).mount("#app");
