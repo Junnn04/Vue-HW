@@ -105,6 +105,7 @@ app.component('productModal',{
       }
     axios[httpMethod](api,{data: this.product})
     .then((response)=>{
+      alert(response.data.message);
      this.hideModal();
      this.$emit('update');
     })
