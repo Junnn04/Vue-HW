@@ -73,10 +73,10 @@
       </div>
       
       <!-- 分頁標籤 -->
-     <script type="text/x-template" id="'pagination">
+     <script type="text/x-template" id="pagination">
            <nav aria-label='page navigation example'>
             <ul class="pagination">
-              <li class="page-item" :class="{'disabled':page.current_page === 1}">
+              <li class="page-item" :class="{'disabled':pages.current_page === 1}">
                 <a href="#" class="page-link" aria-label="Previous" @click.prevent="emitPages(pages.current_page - 1)">
                   <span aria-hidden="true">&laquo;</span>
                 </a>
@@ -85,7 +85,7 @@
                 <span class="page-link" v-if="item === pages.current_page">{{item}}</span>
                 <a href="#" class="page-link" v-else @click.prevent="emitPages(item)">{{item}}</a>
               </li>
-              <li class="page-item" :class="{'disabled' = pages.current_page === page.total_pages}">
+              <li class="page-item" :class="{'disabled' : pages.current_page === pages.total_pages}">
                 <a href="#" class="page-link" aria-label="Next" @click.prevent="emitPages(pages.current_page + 1)">
                   <span aria-hidden="true">&raquo;</span>
                 </a>
@@ -110,25 +110,24 @@
             <div class="modal-body">
               <div class="row mb-3">
                 <div class="col-sm-4">
-                    <div class="mb-3 form-group mb-3">
+                    <div class="form-group mb-3">
                       <label for="imageUrl" class="form-label">主圖片網址</label>
                       <input id='imageUrl' type="text" class="form-control" placeholder="請輸入圖片連結" v-model="product.imageUrl">
                       <img src="product.imagesUrl" class="img-fluid">
                     </div>
-                    <img class="img-fluid" :src="tempProduct.imageUrl">
-                  </div>
+
                   <!-- 新增多圖 -->
                   <h3 class="mb-3">新增多圖</h3>
-                  <div v-if="Array.isArray(tempProduct.imagesUrl)">
-                    <div class="mb-1" v-for="(image,key) in tempProduct.imagesUrl" :key="key">
+                  <div v-if="Array.isArray(product.imagesUrl)">
+                    <div class="mb-1" v-for="(image,key) in product.imagesUrl" :key="key">
                       <div class="form-group">
                         <label :for="`imagesUrl${key}`" class="form-label">圖片網址</label>
-                        <input type="text" :id="`imagesUrl${key}`" v-model="tempProduct.imagesUrl[key]" class="form-control" placeholder="輸入圖片網址">
+                        <input type="text" :id="`imagesUrl${key}`" v-model="product.imagesUrl[key]" class="form-control" placeholder="輸入圖片網址">
                       </div>
                       <img :src="image" class="img-fluid">
                     </div>
 
-                  <div v-if="!tempProduct.imagesUrl.length || tempProduct.imagesUrl[tempProduct.imagesUrl.length - 1]">
+                  <div v-if="!product.imagesUrl.length || product.imagesUrl[product.imagesUrl.length - 1]">
                     <button class="btn btn-outline-primary btn-sm d-block w-100" @click="product.imagesUrl.push('')">
                       新增圖片
                     </button>
