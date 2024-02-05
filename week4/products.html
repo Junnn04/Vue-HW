@@ -43,7 +43,7 @@
             <tr v-for="(item) in products" :key="item.id">
               <td>{{ item.category }}</td>
               <td>{{ item.title }}</td>
-              <td class="text-end">{{ item.orign_price }}</td>
+              <td class="text-end">{{ item.origin_price }}</td>
               <td class="text-end">{{ item.price }}</td>
               <td>
                 <span class="text-success" v-if="item.is_enabled">啟用</span>
@@ -51,10 +51,10 @@
               </td>
               <td>
                 <div class="btn-group">
-                  <button type="button" class="btn btn-outline-primary btn-sm" v-on:click="openModal('edit',item)">
+                  <button type="button" class="btn btn-outline-primary btn-sm" @click="openModal('edit',item)">
                     編輯
                   </button>
-                  <button type="button" class="btn btn-outline-danger btn-sm" v-on:click="openModal('delete',item)">
+                  <button type="button" class="btn btn-outline-danger btn-sm" @click="openModal('delete',item)">
                     刪除
                   </button>
                 </div>
@@ -63,7 +63,7 @@
           </tbody>
         </table>
      <!-- 分頁元件 -->
-     <pagination :page = 'pagination' @emit-page="getData" ></pagination>
+     <pagination :pages = 'pagination' @emit-pages="getData"></pagination>
      <!-- 分頁元件 -->
       </div>
       <!-- Modal -->
@@ -182,7 +182,7 @@
                   </div>
                   <div class="mb-3 form-group">
                     <label for="content" class="form-label">說明內容</label>
-                    <textarea id="description" type="text" class="form-control"
+                    <textarea id="content" type="text" class="form-control"
                               placeholder="請輸入說明內容" v-model = "product.content">
                     </textarea>
                   </div>
@@ -197,7 +197,7 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" > 取消 </button>
-              <button type="button" class="btn btn-primary" @click="updateProdct"> 確認 </button>
+              <button type="button" class="btn btn-primary" @click="updateProduct"> 確認 </button>
             </div>
           </div>
         </div>
@@ -232,8 +232,7 @@
       </div>
     </script>
 
-      <!-- Modal -->
-    </div>
+
 
     <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
 

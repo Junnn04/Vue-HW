@@ -34,7 +34,7 @@ const app = createApp({
           window.location = 'login.html';
         })
     },
-    getData(page=1) {
+    getData(page = 1) {
       const url = `${this.apiUrl}/api/${this.apiPath}/admin/products?page=${page}`;
       axios.get(url)
         .then((response) => {
@@ -62,8 +62,8 @@ const app = createApp({
         this.tempProduct = {...item};
         delProductModal.show();
       }
-    }
-  }
+    },
+  },
 });
 
 //分頁元件
@@ -72,7 +72,7 @@ app.component('pagination',{
   props:['pages'],
   methods:{
     emitPages(item){
-      this.$emit('emit-page',item);
+      this.$emit('emit-pages',item);
     },
   },
 });
@@ -129,7 +129,7 @@ app.component('productModal',{
 //刪除產品元件
 app.component('delProductModal',{
   template:'#delProductModal',
-  prop:['item'],
+  props: ['item'],
   data(){
     return{
       apiUrl:'https://ec-course-api.hexschool.io/v2',
