@@ -113,7 +113,7 @@
                     <div class="form-group mb-3">
                       <label for="imageUrl" class="form-label">主圖片網址</label>
                       <input id='imageUrl' type="text" class="form-control" placeholder="請輸入圖片連結" v-model="product.imageUrl">
-                      <img src="product.imagesUrl" class="img-fluid">
+                      <img :src="product.imagesUrl" class="img-fluid">
                     </div>
 
                   <!-- 新增多圖 -->

@@ -30,7 +30,8 @@ const app = createApp({
           this.getData();
         })
         .catch((err) => {
-          alert(err.data.message)
+          console.log(err)
+          alert(err.response.data.message)
           window.location = 'login.html';
         })
     },
@@ -43,7 +44,7 @@ const app = createApp({
           this.pagination = pagination;
         })
         .catch((err) => {
-          alert(err.data.message);
+          alert(err.response.data.message);
           window.location='login.html';
         })
     },
@@ -110,7 +111,7 @@ app.component('productModal',{
      this.$emit('update');
     })
     .catch((err)=>{
-      alert(err.data.message);
+      alert(err.response.data.message);
     });
     },
     createImages(){
@@ -150,7 +151,7 @@ app.component('delProductModal',{
         this.$emit('update');
       })
       .catch((err)=>{
-        alert(err.data.message);
+        alert(err.response.data.message);
       });
     },
     openModal(){
