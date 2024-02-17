@@ -1,0 +1,1 @@
+import{_ as o,c as t,b as n,F as r,a,o as c,r as s}from"./index-qgoE3cgc.js";const _={},l=a("h2",null,"購物車",-1);function i(m,u){const e=s("RouterView");return c(),t(r,null,[l,n(e)],64)}const f=o(_,[["render",i]]);export{f as default};
